@@ -16,25 +16,33 @@ knit        : slidify::knit2slides
 
 Using random forests to predict species of Iris plants https://galphub.shinyapps.io/ShinyApp.
 
-### Features
+In a variety of settings involving interaction with wildlife and developing an frameworks for ecological restoration of land sites it is key to employ expert taxonomists. Taxonomists provide the basic knowledge about the species that are a) currently involved in the prevailing biological system and b) the species that would otherwise naturally occurr in the area. Because of limited budgets on restoration or research programs into restoration, enlisting sufficiently many taxonomists can result in delays on the project. This is because only a few taxonomists may be available and the sample sizes are proportionately smaller. This application addresses the need for expert knowledge on taxonomy of the Iris plant species, illustrating the market for this app.
+
+---
+
+## A sample application.
+
+If an Iris plant has petal length, petal width, sepal length and sepal width equal to
+4, 2, 5 and 3, respectively, what species does it most likely belong to?
+```{r,warning=FALSE,message=FALSE}
+library(datasets)
+library(randomForest)
+rf_model <- randomForest(Species ~., data=iris,ntree=1e3)
+predict(rf_model, newdata=data.frame(Petal.Length=4,Petal.Width=2,Sepal.Length=5,Sepal.Width=3))
+```
+
+---
+
+## Features
 
 1. Requires 4 parameters corresponding to quantitative plant features (i.e. sepal length, sepal width, petal length and petal width) as input.
 2. The inputs will be displayed reactively on the main panel (to the right). 
 3. The predicted value of species will only appear after hitting the predict button.
 4. If a mistake is made as to the chosen values of the inputs, or one wishes to reset the values to their default, clicking the "Reset inputs" button will reset the parameter values to their median value (i.e. their initial values).
-
---- .nobackground #foo
-
-## Additional features (cont.)
 5. A plot of two of the variables in the data set are provided to guide the user in choosing some test values for the app.
 6. Some features of the plot are reactive to slider inputs. 
  * The top slider, petal length, controls the size of the points. It enlarges (resp. shrinks) points of species X as the parameter values approaces (resp. moves away from) the median of petal length for that species.
  * Petal width and sepal length control the black lines on the plot.
-
-
-<script>
-$("#foo ol").attr('start', 5)
-</script>
 
 ---
 
